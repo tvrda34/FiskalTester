@@ -1,0 +1,1 @@
+Application for testing implementation of cash registers in process of fiscalization.
