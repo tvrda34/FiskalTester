@@ -10,6 +10,8 @@ import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
 import EmailVerify from './screens/EmailVerify';
+import CashRegistersScreen from './screens/CashRegistersScreen';
+import RegisterEditScreen from './screens/RegisterEditScreen';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
                   <Route path='/register' element={<RegisterScreen />} />
                   <Route path='/profile' element={<ProfileScreen />} />
                   <Route path='/email-verify/:token' element={<EmailVerify />} />
+                  <Route path='/cash-registers' element={<CashRegistersScreen />} />
+                  <Route path='/cash-registers/:id/edit' element={<RegisterEditScreen/>} />
               </Routes>
             </Container>
           </main>

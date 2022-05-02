@@ -32,6 +32,10 @@ function Header() {
                             <NavDropdown.Item>Profile</NavDropdown.Item>
                           </LinkContainer>
 
+                          <LinkContainer to='/cash-registers'>
+                            <NavDropdown.Item>Cash registers</NavDropdown.Item>
+                          </LinkContainer>
+
                           <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
 
                       </NavDropdown>

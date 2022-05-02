@@ -14,6 +14,14 @@ import {
     userVerifyReducer,
 } from './reducers/userReducers'
 
+import { 
+    registersListReducer,
+    registerCreateReducer,
+    registerDeleteReducer,
+    registerUpdateReducer,
+    registerDetailsReducer,
+ } from './reducers/registersReducers'
+
 const reducer = combineReducers({
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
@@ -23,6 +31,12 @@ const reducer = combineReducers({
     userDelete: userDeleteReducer,
     userUpdate: userUpdateReducer,
     verified: userVerifyReducer,
+
+    registersList: registersListReducer,
+    registerDelete: registerDeleteReducer,
+    registerCreate: registerCreateReducer,
+    registerDetails: registerDetailsReducer,
+    registerUpdate: registerUpdateReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo') ?

@@ -43,8 +43,8 @@ class MyTokenObtainPairView(TokenObtainPairView):
 def registerUser(request):
     data = request.data
     
-    #try:
-    user = User.objects.create(
+    try:
+        user = User.objects.create(
             first_name=data['name'],
             username=data['email'],
             email=data['email'],
@@ -52,12 +52,12 @@ def registerUser(request):
             is_active=False
         )
 
-    subject = 'Account Verification'
-    message = 'Welcome'
-    verify_link = 'http://localhost:3000/email-verify/' + urlsafe_base64_encode(force_bytes(user.pk))
-    html_content = render_to_string('verify_email.html', {'verify_link':verify_link, 'base_url': 'http://localhost:3000/email-verify/' }) 
+        subject = 'Account Verification'
+        message = 'Welcome'
+        verify_link = 'http://localhost:3000/email-verify/' + urlsafe_base64_encode(force_bytes(user.pk))
+        html_content = render_to_string('verify_email.html', {'verify_link':verify_link, 'base_url': 'http://localhost:3000/email-verify/' }) 
 
-    send_mail(
+        send_mail(
             subject = subject,
             message = message,
             html_message = html_content,
@@ -66,11 +66,11 @@ def registerUser(request):
             fail_silently = False,
         )
 
-    serializer = UserSerializerWithToken(user, many=False)
-    return Response(serializer.data)
-    #except:
-        #message = {'detail': 'User with this email already exists'}
-        #return Response(message, status=status.HTTP_400_BAD_REQUEST)
+        serializer = UserSerializerWithToken(user, many=False)
+        return Response(serializer.data)
+    except:
+        message = {'detail': 'User with this email already exists'}
+        return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
@@ -104,7 +104,6 @@ def getUsers(request):
 
 @api_view(['POST'])
 def validateEmailToken(request):
-    print(request.data)
     token = request.data['tverify']
 
     try:
