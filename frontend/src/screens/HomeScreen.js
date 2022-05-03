@@ -1,23 +1,11 @@
-import React, {useState, useEffect } from 'react'
+import React from 'react'
 import { Row } from 'react-bootstrap'
-import axios from 'axios'
 import HomeCarousel from '../components/HomeCarousel'
 import About from '../components/About'
 
 
 function HomeScreen() {
-  const [registers, setRegisters] = useState([])
-
-  useEffect(() => {
-    
-    async function fetchRegisters(){
-      const { data } = await axios.get('/api/registers')
-      setRegisters(data)
-    }
-
-    fetchRegisters()
-  }, [])
-
+  
   return (
     <div>
         <Row>

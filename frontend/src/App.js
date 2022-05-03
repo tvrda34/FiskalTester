@@ -5,7 +5,6 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 
 import HomeScreen from './screens/HomeScreen'
-import About from './screens/About'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
@@ -13,6 +12,7 @@ import CashRegistersScreen from './screens/CashRegistersScreen';
 import CashRegisterEditScreen from './screens/CashRegisterEditScreen';
 import VerifyAccountScreen from './screens/VerifyAccountScreen';
 import EmailVerifyScreen from './screens/EmailVerifyScreen';
+import FAQScreen from './screens/FAQScreen';
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
               <Routes>
                   {" "}
                   <Route path="/" element={<HomeScreen />} exact />
-                  <Route path="/about" element={<About />} exact/>
+                  <Route path="/faq" element={<FAQScreen />} exact/>
                   <Route path="/login" element={<LoginScreen />} />
                   <Route path='/register' element={<RegisterScreen />} />
                   <Route path='/profile' element={<ProfileScreen />} />
