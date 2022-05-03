@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import data from '../data'
+import { Link } from 'react-router-dom'
 import SingleQuestion from '../components/Question'
 
 
@@ -9,6 +10,7 @@ export default function FAQScreen() {
     
     return (
       <main>
+      <Link to='/' className='btn btn-light'>Go Back</Link>
       <div className='containerq'>
         <h3>questions and answers about fiskal tester</h3>
         <section className='info'>

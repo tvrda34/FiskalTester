@@ -46,7 +46,7 @@ function Header() {
                     )}
 
                     <LinkContainer to="/faq">
-                          <Nav.Link href="/faq"><i className="fas fa-info-circle"/> FAQ</Nav.Link>
+                          <Nav.Link href="/faq"><i className="fas fa-question-circle"/> FAQ</Nav.Link>
                     </LinkContainer>
                   </Nav>
                 </Navbar.Collapse>
