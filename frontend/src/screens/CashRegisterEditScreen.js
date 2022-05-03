@@ -10,7 +10,7 @@ import { listRegisterDetails, updateRegister } from '../actions/registerActions'
 import { REGISTER_UPDATE_RESET } from '../constants/registerConstants'
 
 
-function RegisterEditScreen({ props }) {
+function CashRegisterEditScreen({ props }) {
 
     const { id } = useParams()
     const registerId = id
@@ -169,4 +169,4 @@ function RegisterEditScreen({ props }) {
     )
 }
 
-export default RegisterEditScreen
+export default CashRegisterEditScreen

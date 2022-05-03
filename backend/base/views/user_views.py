@@ -105,9 +105,10 @@ def getUsers(request):
 @api_view(['POST'])
 def validateEmailToken(request):
     token = request.data['tverify']
+    tokenValue  = token.get('token')
 
     try:
-        uid = force_str(urlsafe_base64_decode(token))
+        uid = force_str(urlsafe_base64_decode(tokenValue))
         user = User.objects.get(pk=uid)
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
@@ -118,11 +119,13 @@ def validateEmailToken(request):
         res = {
             'status': 'success',
             'message': 'Valid',
+            'active': 1,
         }
     else:
         res = {
             'status': 'failed',
             'message': 'Invalid',
+            'active': 0,
         }
     
     return Response(res)

@@ -66,7 +66,7 @@ export const userRegisterReducer = (state = {}, action) => {
             return { loading: true }
 
         case USER_REGISTER_SUCCESS:
-            return { loading: false, userInfo: action.payload }
+            return { loading: false, success: true }
 
         case USER_REGISTER_FAIL:
             return { loading: false, error: action.payload }
@@ -178,7 +178,7 @@ export const userUpdateReducer = (state = { user: {} }, action) => {
     }
 }
 
-export const userVerifyReducer = (state = {}, action) => {
+export const userVerifyReducer = (state = { }, action) => {
     switch (action.type) {
         case USER_VERIFY_REQUEST:
             return { loading: true }
@@ -187,7 +187,7 @@ export const userVerifyReducer = (state = {}, action) => {
             return { loading: false, success: true }
 
         case USER_VERIFY_FAIL:
-            return { loading: false, error: action.payload }
+            return { loading: false, error: action.payload, success: false }
 
         default:
             return state

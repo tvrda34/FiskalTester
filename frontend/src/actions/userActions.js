@@ -343,12 +343,10 @@ export const verifyEmail = (token) => async (dispatch, getState) => {
 
         const { data } = await axios.post(
             `/api/users/verify/`,
-            { tverify: '16' },
+            { tverify: {token} },
             config
         )
 
-        console.log(data)
-        
         dispatch({
             type: USER_VERIFY_SUCCESS,
             payload: data
