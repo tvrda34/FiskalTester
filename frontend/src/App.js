@@ -13,6 +13,7 @@ import CashRegisterEditScreen from './screens/CashRegisterEditScreen';
 import VerifyAccountScreen from './screens/VerifyAccountScreen';
 import EmailVerifyScreen from './screens/EmailVerifyScreen';
 import FAQScreen from './screens/FAQScreen';
+import PageNotFoundScreen from './screens/PageNotFoundScreen';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
                   <Route path='/cash-registers' element={<CashRegistersScreen />} />
                   <Route path='/cash-registers/:id/edit' element={<CashRegisterEditScreen/>} />
                   <Route path='register/verification' element={<VerifyAccountScreen/>} />
+                  <Route path='*' element={<PageNotFoundScreen/>} exact />
               </Routes>
             </Container>
           </main>
