@@ -24,17 +24,18 @@ class Test(models.Model):
     description = models.TextField(max_length=400, null=True, blank=True)
 
     def __str__(self) :
-        return self.name
+        return '%s: %s' % (self.name, self.description)
 
 class TestResult(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     register = models.ForeignKey(Register, on_delete=models.CASCADE, null=False)
-    bill_num = models.TextField(max_length=400, null=False, blank=False)
+    reciept = models.TextField(max_length=400, null=False, blank=False)
     created = models.DateTimeField(auto_now_add=True)
     result = models.BooleanField(default=False)
     result_description = models.TextField(max_length=400, null=True, blank=True)
 
     def __str__(self) :
-        return '%s %s' % (self.register.name, str(self.id))
+        return '%s %s' % (self.register.name, self.reciept)
 
 class TestMethod(models.Model):
     testResult = models.ForeignKey(TestResult, on_delete=models.CASCADE, null=False)
