@@ -45,3 +45,6 @@ class TestMethod(models.Model):
     testRun = models.ForeignKey(Test, on_delete=models.DO_NOTHING, null=True)
     description = models.TextField(max_length=400, null=True, blank=True)
 
+    def __str__(self) :
+        return '[%s]: %s' % (self.testResult, str(self.id))
+
