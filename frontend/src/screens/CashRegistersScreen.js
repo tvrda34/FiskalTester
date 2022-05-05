@@ -82,12 +82,12 @@ function CashRegistersScreen() {
                             <Table striped bordered hover responsive className='table-sm'>
                                 <thead>
                                     <tr>
-                                        <th>NAME</th>
-                                        <th>VERSION</th>
-                                        <th>LOCATION</th>
-                                        <th>DESCRIPTION</th>
-                                        <th>CREATED AT</th>
-                                        <th>TEST NUM.</th>
+                                        <th className="text-center">NAME</th>
+                                        <th className="text-center">VERSION</th>
+                                        <th className="text-center">LOCATION</th>
+                                        <th className="text-center">DESCRIPTION</th>
+                                        <th className="text-center">CREATED AT</th>
+                                        <th className="text-center">TEST NUM.</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -102,7 +102,7 @@ function CashRegistersScreen() {
                                             <td>{register.createdAt}</td>
                                             <td>{register.numTest}</td>
 
-                                            <td>
+                                            <td className="text-center">
                                                 <LinkContainer to={`/cash-registers/${register.id}/edit`}>
                                                     <Button variant='light' className='btn-sm'>
                                                         <i className='fas fa-edit'></i>
@@ -112,6 +112,15 @@ function CashRegistersScreen() {
                                                 <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(register.id)}>
                                                     <i className='fas fa-trash'></i>
                                                 </Button>
+
+                                            </td>
+
+                                            <td class="text-center">
+                                                <LinkContainer to={`/cash-registers/tests/${register.id}`}>
+                                                    <Button variant='light' className='btn-sm'>
+                                                        <i className='fas fa-tachometer'></i>
+                                                    </Button>
+                                                </LinkContainer>
                                             </td>
                                         </tr>
                                     ))}

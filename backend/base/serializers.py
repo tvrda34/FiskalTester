@@ -45,14 +45,16 @@ class TestRunSerializer(serializers.ModelSerializer):
     class Meta:
         model = Test
         fields ='__all__'
-class TestMethodSerializer(serializers.ModelSerializer):
-    testRun = TestRunSerializer(many=False, read_only=True)
-    class Meta:
-        model = TestMethod
-        fields ='__all__'
 
 class TestResultSerializer(serializers.ModelSerializer):
     register = RegisterSerializer(many=False, read_only=True)
     class Meta:
         model = TestResult
         fields ='__all__'
+class TestMethodSerializer(serializers.ModelSerializer):
+    testRun = TestRunSerializer(many=False, read_only=True)
+    testResult = TestResultSerializer(many=False, read_only=True)
+    class Meta:
+        model = TestMethod
+        fields ='__all__'
+

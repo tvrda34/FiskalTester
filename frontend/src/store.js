@@ -22,6 +22,12 @@ import {
     registerDetailsReducer,
  } from './reducers/registersReducers'
 
+ import { 
+     testsListReducer,
+     testDetailsReducer,
+     testDeleteReducer, 
+} from './reducers/testReducers'
+
 const reducer = combineReducers({
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
@@ -37,6 +43,10 @@ const reducer = combineReducers({
     registerCreate: registerCreateReducer,
     registerDetails: registerDetailsReducer,
     registerUpdate: registerUpdateReducer,
+
+    testsList: testsListReducer,
+    testDetails: testDetailsReducer,
+    testDelete: testDeleteReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem('userInfo') ?
