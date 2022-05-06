@@ -50,7 +50,7 @@ function CollapsableRow(props) {
               <Row className="py-3">
                 <h6>Test done:</h6>
                 <hr />
-                <div>{row.testRun.name}: {row.testRun.description}</div>
+                <div><b>{row.testRun.name}:</b> {row.testRun.description}</div>
               </Row>
               <Row className="py-3">
                 <h6>Test started:</h6>

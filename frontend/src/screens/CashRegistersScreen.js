@@ -115,7 +115,7 @@ function CashRegistersScreen() {
 
                                             </td>
 
-                                            <td class="text-center">
+                                            <td className="text-center">
                                                 <LinkContainer to={`/cash-registers/tests/${register.id}`}>
                                                     <Button variant='light' className='btn-sm'>
                                                         <i className='fas fa-tachometer'></i>
