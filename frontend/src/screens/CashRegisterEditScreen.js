@@ -46,7 +46,7 @@ function CashRegisterEditScreen({ props }) {
                 setLocation(register.location)
                 setDescription(register.description)
                 setCreatedAt(register.createdAt)
-                setTestNum(register.numtest)
+                setTestNum(register.numTest)
             }
         }
 
@@ -133,7 +133,7 @@ function CashRegisterEditScreen({ props }) {
                                 <Form.Label>Test Num.</Form.Label>
                                 <Form.Control
 
-                                    type='number'
+                                    type='text'
                                     placeholder='Disabled input'
                                     value={testnum}
                                     disabled

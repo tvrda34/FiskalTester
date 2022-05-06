@@ -95,14 +95,14 @@ function CashRegistersScreen() {
                                 <tbody>
                                     {registers.map(register => (
                                         <tr key={register.id}>
-                                            <td>{register.name}</td>
-                                            <td>{register.version}</td>
-                                            <td>{register.location}</td>
-                                            <td>{register.description}</td>
-                                            <td>{register.createdAt}</td>
-                                            <td>{register.numTest}</td>
+                                            <td className="align-middle text-center">{register.name}</td>
+                                            <td className="align-middle text-center">{register.version}</td>
+                                            <td className="align-middle text-center">{register.location}</td>
+                                            <td className="align-middle text-center">{register.description}</td>
+                                            <td className="align-middle text-center">{register.createdAt}</td>
+                                            <td className="align-middle text-center">{register.numTest}</td>
 
-                                            <td className="text-center">
+                                            <td className="align-middle text-center">
                                                 <LinkContainer to={`/cash-registers/${register.id}/edit`}>
                                                     <Button variant='light' className='btn-sm'>
                                                         <i className='fas fa-edit'></i>
@@ -115,10 +115,10 @@ function CashRegistersScreen() {
 
                                             </td>
 
-                                            <td className="text-center">
+                                            <td className="align-middle text-center">
                                                 <LinkContainer to={`/cash-registers/tests/${register.id}`}>
-                                                    <Button variant='light' className='btn-sm'>
-                                                        <i className='fas fa-tachometer'></i>
+                                                    <Button variant='light' className='btn-sm btn btn-outline-primary'>
+                                                        <i className='fas fa-tachometer'>Tests</i>
                                                     </Button>
                                                 </LinkContainer>
                                             </td>

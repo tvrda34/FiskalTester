@@ -60,3 +60,16 @@ def deleteTest(request, pk):
     except TestResult.DoesNotExist:
         message = {'detail': 'Test with this id does not exsists!'}
         return Response(message, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getTestResultsForUser(request):
+    try:
+        user = request.user
+        testResult = TestResult.objects.filter(user=user)
+        serializer = TestResultSerializer(testResult, many=True)
+        return Response(serializer.data)
+    except:
+        message = {'detail': 'Internal server error!'}
+        return Response(message, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
