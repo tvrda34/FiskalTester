@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { useEffect } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -59,13 +59,13 @@ function TestInspectScreen() {
       {loadingRes ? (
         <Loader />
       ) : errorRes ? (
-        <Message variant='danger'>{errorRes}</Message>
+        <Message variant="danger">{errorRes}</Message>
       ) : (
         testsRes.map(
           (baset) =>
             baset.id == testResultId && (
               <div>
-                <Row className='align-items-center'>
+                <Row className="align-items-center">
                   <Col>
                     <h1>Test Details: </h1>
                     <h2>
@@ -73,37 +73,60 @@ function TestInspectScreen() {
                     </h2>
                   </Col>
 
-                  <Col className='text-right'>
-                    <Button className='my-3' onClick={deleteHandler}>
-                      <i className='fas fa-trash'></i> Delete test
+                  <Col className="text-right">
+                    <Button className="my-3" onClick={deleteHandler}>
+                      <i className="fas fa-trash"></i> Delete test
                     </Button>
                   </Col>
                 </Row>
                 <Row>
                   <Col>
-                      <h6>Register info:</h6>
-                      <hr></hr>
-                      <p>name: {baset.register.name}<br/>
-                      version: {baset.register.version}<br/>
-                      location: {baset.register.location}</p>
+                    <h6>Register info:</h6>
+                    <hr></hr>
+                    <p>
+                      name: {baset.register.name}
+                      <br />
+                      version: {baset.register.version}
+                      <br />
+                      location: {baset.register.location}
+                    </p>
                   </Col>
-                  <Col className='text-right'>
+                  <Col className="text-right">
                     <h6>Test status</h6>
                     {baset.result === true && (
-                      <div class='alert alert-success' style = {{ borderRadius: 10, overflow: 'hidden'}}>
-                        <h5 className='text-center' style={{ color: 'midnightblue' }}>Test passed</h5>
+                      <div
+                        class="alert alert-success"
+                        style={{ borderRadius: 10, overflow: "hidden" }}
+                      >
+                        <h5
+                          className="text-center"
+                          style={{ color: "midnightblue" }}
+                        >
+                          Test passed
+                        </h5>
                       </div>
                     )}
                     {baset.result === false && (
-                      <div class='alert alert-danger' style = {{ borderRadius: 10, overflow: 'hidden'}}>
-                        <h5 className='text-center' style={{ color: 'darkred' }}>Test failed</h5>
+                      <div
+                        class="alert alert-danger"
+                        style={{ borderRadius: 10, overflow: "hidden" }}
+                      >
+                        <h5
+                          className="text-center"
+                          style={{ color: "darkred" }}
+                        >
+                          Test failed
+                        </h5>
                       </div>
                     )}
                     <p>{baset.result_description}</p>
                   </Col>
                 </Row>
                 <Row>
-                  <p><b>Test started: </b>{baset.created}</p>
+                  <p>
+                    <b>Test started: </b>
+                    {baset.created}
+                  </p>
                 </Row>
               </div>
             )

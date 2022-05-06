@@ -9,7 +9,7 @@ const questions = [
       id: 2,
       title: 'How to obtain test certificates?',
       info:
-        'Once you register you will be able to download the certificates on your profile.',
+        'Once you register, you will be able to download the certificates on your profile screen.',
     },
     {
       id: 3,
@@ -19,9 +19,9 @@ const questions = [
     },
     {
       id: 4,
-      title: 'Can I get confirmation that the cash register has passed the test?',
+      title: 'Can I get confirmation certificate that the cash register has passed the test?',
       info:
-        'That functionality will be available soon',
+        'We are not issuing certificates yet. We may enable this functionality in the future',
     },
   ]
   export default questions
