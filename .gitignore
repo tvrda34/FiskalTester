@@ -503,3 +503,5 @@ google-services.json
 *.hprof
 
 # End of https://www.toptal.com/developers/gitignore/api/react,django,reactnative,python
+
+.env
