@@ -1,10 +1,9 @@
-
-from signxml import XMLVerifier, InvalidCertificate
+from signxml import XMLVerifier, InvalidCertificate, InvalidSignature
 from lxml import etree
 from cryptography import x509
 from cryptography.hazmat.backends import default_backend
 from datetime import datetime
-
+from configparser import ConfigParser
 
 class CheckImplementation:
 
@@ -12,30 +11,30 @@ class CheckImplementation:
     def verify(self, xml: etree):
         errorSet = set()
         
-        cert = CheckImplementation.loadCert(xml)
-        
-        #check issuer
-        if("C=HR,O=FINA" not in str(cert.issuer)):
-            errorSet.add("s002")
-        
-        #check name
-        if("FISKAL" not in str(cert.subject)):
-            errorSet.add("s003")
+        skip = 0
+        if skip != 0:
+            cert = CheckImplementation.loadCert(xml)
+            
+            #check issuer
+            if("C=HR,O=FINA" not in str(cert.issuer)):
+                errorSet.add("s002")
+            
+            #check name
+            if("FISKAL" not in str(cert.subject)):
+                errorSet.add("s003")
 
-        #check date until which is valid
-        if(datetime.now() > cert.not_valid_after):
-            errorSet.add("s002")
+            #check date until which is valid
+            if(datetime.now() > cert.not_valid_after):
+                errorSet.add("s002")
 
         #Check signature
         try:
-            verified_data = XMLVerifier().verify(xml, "newkey.pem")
-            print(verified_data)
-        except InvalidCertificate as e:
-            print(e)
+            cert = CheckImplementation.get_signature_cert()
+            XMLVerifier().verify(xml, x509_cert=cert).signed_xml
+        except (InvalidCertificate, InvalidSignature) as e:
+            errorSet.add("s004")  # Signature not valid
         
-        errorSet.add("s004")  # Signature not valid
-        
-        #Check OIB
+        #Check OIB ??
         
         return errorSet
     
@@ -44,3 +43,8 @@ class CheckImplementation:
         pem_data = '-----BEGIN CERTIFICATE-----\n' + pem_data +'\n-----END CERTIFICATE-----\n'
         
         return x509.load_pem_x509_certificate(str.encode(pem_data), default_backend())
+    
+    def get_signature_cert():
+        configur = ConfigParser()
+        configur.read('config.ini')
+        return open(configur.get('file', 'cert')).read()

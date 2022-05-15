@@ -8,12 +8,19 @@ class MainHandler(tornado.web.RequestHandler):
     def post(self):
         body = eval(self.request.body)
         xml_str = body['xml'].encode()
-        user_id = body['cashRegister_id']
+        uuid = body['uuid']
 
         xml = etree.fromstring(xml_str)
 
-        # response to client and test request
-        self.write(test_controller.test_request(user_id, xml))
+        #check access
+        access = test_controller.check_access(uuid)
+        if access == None:
+            self.clear()
+            self.set_status(403)
+        else:
+            (register_id, user_id) = access
+            # response to client and test request
+            self.write(test_controller.test_request(xml, register_id, user_id))
 
 
 def make_app():

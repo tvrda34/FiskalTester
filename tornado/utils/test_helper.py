@@ -1,14 +1,14 @@
 
 from utils import  error_dictionary
 
-class TestUtil:
+class TestUtil(object):
 
     def __init__(self, errors):
         # parse the given file
         self.errors = errors
         self.testNote = ""
         self.validationMsg = ""
-        self.type = 0
+        self.type = 1
         self.signed = None
         self.fillRandom = None
 
@@ -29,10 +29,10 @@ class TestUtil:
 
         if(fillRandom == False and signed == 0):
             self.testNote = self.testNote + " Correct response."
-            self.type = 0
+            self.type = 1
         else:
             self.testNote = self.testNote + " Response wrong for this request."
-            self.type = 1
+            self.type = 2
 
         if(signed == 1):
             self.testNote = self.testNote + " Response not signed."
@@ -42,7 +42,7 @@ class TestUtil:
         elif(len(self.errors) != 0 and fillRandom == False):
             self.testNote = self.testNote + " Valid errors in response."
         
-        if(self.type == 0):
+        if(len(self.errors) != 0):
             self.testNote = self.testNote + " Waiting for cash registers next action..."
 
         
