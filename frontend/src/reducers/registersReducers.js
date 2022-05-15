@@ -21,6 +21,19 @@ import {
     REGISTER_UPDATE_FAIL,
     REGISTER_UPDATE_RESET,
 
+    STARTED_LIST_REQUEST,
+    STARTED_LIST_SUCCESS,
+    STARTED_LIST_FAIL,
+
+    STARTED_CREATE_REQUEST,
+    STARTED_CREATE_SUCCESS,
+    STARTED_CREATE_FAIL,
+    STARTED_CREATE_RESET,
+
+    STARTED_DELETE_REQUEST,
+    STARTED_DELETE_SUCCESS,
+    STARTED_DELETE_FAIL,
+
 } from '../constants/registerConstants'
 
 
@@ -113,6 +126,60 @@ export const registerUpdateReducer = (state = { register: {} }, action) => {
 
         case REGISTER_UPDATE_RESET:
             return { register: {} }
+
+        default:
+            return state
+    }
+}
+
+export const startedListReducer = (state = { testsStarted: [] }, action) => {
+    switch (action.type) {
+        case STARTED_LIST_REQUEST:
+            return { loading: true, testsStarted: [] }
+
+        case STARTED_LIST_SUCCESS:
+            return {
+                loading: false,
+                testsStarted: action.payload
+            }
+
+        case STARTED_LIST_FAIL:
+            return { loading: false, error: action.payload }
+
+        default:
+            return state
+    }
+}
+
+export const startedCreateReducer = (state = {}, action) => {
+    switch (action.type) {
+        case STARTED_CREATE_REQUEST:
+            return { loading: true }
+
+        case STARTED_CREATE_SUCCESS:
+            return { loading: false, success: true }
+
+        case STARTED_CREATE_FAIL:
+            return { loading: false, error: action.payload }
+        
+        case STARTED_CREATE_RESET:
+            return {}
+
+        default:
+            return state
+    }
+}
+
+export const startedDeleteReducer = (state = {}, action) => {
+    switch (action.type) {
+        case STARTED_DELETE_REQUEST:
+            return { loading: true }
+
+        case STARTED_DELETE_SUCCESS:
+            return { loading: false, success: true }
+
+        case STARTED_DELETE_FAIL:
+            return { loading: false, error: action.payload }
 
         default:
             return state

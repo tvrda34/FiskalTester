@@ -6,6 +6,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { listTests, deleteTest } from "../actions/testActions";
+import { addStarted } from '../actions/registerActions'
+import { STARTED_CREATE_RESET } from "../constants/registerConstants";
 
 function CashRegisterTestsScreen() {
   const dispatch = useDispatch();
@@ -24,16 +26,25 @@ function CashRegisterTestsScreen() {
     success: successDelete,
   } = testDelete;
 
+  const createStarted = useSelector(state => state.startedCreate)
+  const { loading: loadingCreate, error: errorCreate, success: successCreate } = createStarted
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
   useEffect(() => {
+    dispatch({ type: STARTED_CREATE_RESET })
+    
     if (!userInfo) {
       navigate("/login");
     }
-
-    dispatch(listTests(registerId));
-  }, [dispatch, navigate, userInfo, successDelete]);
+    console.log(successCreate)
+    if (successCreate) {
+      navigate("/tests/started")
+    } else {
+      dispatch(listTests(registerId));
+    }
+  }, [dispatch, navigate, userInfo, successDelete, successCreate]);
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure you want to delete this test?")) {
@@ -41,7 +52,9 @@ function CashRegisterTestsScreen() {
     }
   };
 
-  const startTestHandler = () => {};
+  const startTestHandler = () => {
+    dispatch(addStarted(id))
+  };
 
   return (
     <div>
@@ -59,6 +72,9 @@ function CashRegisterTestsScreen() {
 
       {loadingDelete && <Loader />}
       {errorDelete && <Message variant="danger">{errorDelete}</Message>}
+
+      {loadingCreate && <Loader />}
+      {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
 
       {loading ? (
         <Loader />

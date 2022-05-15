@@ -16,6 +16,7 @@ import FAQScreen from './screens/FAQScreen';
 import PageNotFoundScreen from './screens/PageNotFoundScreen';
 import CashRegisterTestsScreen from './screens/CashRegisterTestsScreen'
 import TestInspectScreen from './screens/TestInspectScreen'
+import TestsStartedScreen from './screens/TestsStartedScreen';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
                   <Route path='register/verification' element={<VerifyAccountScreen/>} />
                   <Route path='/cash-registers/tests/:id' element={<CashRegisterTestsScreen/>} />
                   <Route path='/test/:id' element={<TestInspectScreen/>}/>
+                  <Route path='/tests/started' element={<TestsStartedScreen/>}/>
                   <Route path='*' element={<PageNotFoundScreen/>} exact />
               </Routes>
             </Container>

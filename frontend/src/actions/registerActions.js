@@ -20,6 +20,18 @@ import {
     REGISTER_UPDATE_SUCCESS,
     REGISTER_UPDATE_FAIL,
 
+    STARTED_LIST_REQUEST,
+    STARTED_LIST_SUCCESS,
+    STARTED_LIST_FAIL,
+
+    STARTED_CREATE_REQUEST,
+    STARTED_CREATE_SUCCESS,
+    STARTED_CREATE_FAIL,
+
+    STARTED_DELETE_REQUEST,
+    STARTED_DELETE_SUCCESS,
+    STARTED_DELETE_FAIL,
+
 } from '../constants/registerConstants'
 
 
@@ -209,6 +221,117 @@ export const updateRegister = (register) => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: REGISTER_UPDATE_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+        })
+    }
+}
+
+
+export const listStarted = () => async (dispatch, getState) => {
+    try {
+        dispatch({ type: STARTED_LIST_REQUEST })
+
+        const {
+            userLogin: { userInfo },
+        } = getState()
+
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const { data } = await axios.get(
+            `/api/tests/started/tests/`,
+            config 
+        )
+
+        dispatch({
+            type: STARTED_LIST_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: STARTED_LIST_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+        })
+    }
+}
+
+export const addStarted = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: STARTED_CREATE_REQUEST
+        })
+
+        const {
+            userLogin: { userInfo },
+        } = getState()
+
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const { data } = await axios.post(
+            `/api/registers/startTest/${id}/`,
+            {},
+            config
+        )
+        dispatch({
+            type: STARTED_CREATE_SUCCESS,
+            payload: data,
+        })
+
+
+    } catch (error) {
+        dispatch({
+            type: STARTED_CREATE_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+        })
+    }
+}
+
+export const deleteStarted = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: STARTED_DELETE_REQUEST
+        })
+
+        const {
+            userLogin: { userInfo },
+        } = getState()
+
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const { data } = await axios.delete(
+            `/api/registers/removeFromTest/${id}/`,
+            config
+        )
+
+        dispatch({
+            type: STARTED_DELETE_SUCCESS,
+        })
+
+
+    } catch (error) {
+        dispatch({
+            type: STARTED_DELETE_FAIL,
             payload: error.response && error.response.data.detail
                 ? error.response.data.detail
                 : error.message,

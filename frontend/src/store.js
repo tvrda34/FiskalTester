@@ -20,6 +20,9 @@ import {
     registerDeleteReducer,
     registerUpdateReducer,
     registerDetailsReducer,
+    startedListReducer,
+    startedCreateReducer,
+    startedDeleteReducer,
  } from './reducers/registersReducers'
 
  import { 
@@ -43,6 +46,9 @@ const reducer = combineReducers({
     registerCreate: registerCreateReducer,
     registerDetails: registerDetailsReducer,
     registerUpdate: registerUpdateReducer,
+    startedList: startedListReducer,
+    startedCreate: startedCreateReducer,
+    startedDelete: startedDeleteReducer,
 
     testsList: testsListReducer,
     testDetails: testDetailsReducer,

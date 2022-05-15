@@ -36,6 +36,10 @@ function Header() {
                             <NavDropdown.Item>Cash registers</NavDropdown.Item>
                           </LinkContainer>
 
+                          <LinkContainer to='/tests/started'>
+                            <NavDropdown.Item>Registers in test</NavDropdown.Item>
+                          </LinkContainer>
+
                           <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
 
                       </NavDropdown>
