@@ -1,8 +1,6 @@
 from tornado.httpclient import AsyncHTTPClient, HTTPRequest
 import asyncio
 from configparser import ConfigParser
-from signxml import XMLSigner, methods
-from lxml import etree
 
 async def post(uuid, xml):
     http_client = AsyncHTTPClient()
@@ -17,7 +15,7 @@ async def post(uuid, xml):
 
 
 if __name__ == '__main__':
-    uuid = '54af72a25cf24ad6b93ab0eaea5a4fc0'  # cashReg
+    uuid = '54af72a25cf24ad6b93ab0eaea5a4fc0'  # test uuid
     configur = ConfigParser()
     configur.read('config.ini')
     xml = open(configur.get('file', 'input')).read()
