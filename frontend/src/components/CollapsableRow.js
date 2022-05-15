@@ -58,6 +58,11 @@ function CollapsableRow(props) {
                 <div>{row.timestamp}</div>
               </Row>
               <Row className="py-3">
+                <h6>Validation result:</h6>
+                <hr />
+                <div>{row.validationResult}</div>
+              </Row>
+              <Row className="py-3">
                 <h6>Test note:</h6>
                 <hr />
                 <div>{row.description}</div>

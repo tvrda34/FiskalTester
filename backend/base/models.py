@@ -44,6 +44,7 @@ class TestMethod(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     testRun = models.ForeignKey(Test, on_delete=models.DO_NOTHING, null=True)
     description = models.TextField(max_length=400, null=True, blank=True)
+    validationResult = models.TextField(max_length=400, null=False, blank=False)
 
     def __str__(self) :
         return '[%s]: %s' % (self.testResult, str(self.id))
