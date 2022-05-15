@@ -33,6 +33,7 @@ class TestResult(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     result = models.BooleanField(default=False)
     result_description = models.TextField(max_length=400, null=True, blank=True)
+    done = models.BooleanField(default=False)
 
     def __str__(self) :
         return '%s %s' % (self.register.name, self.reciept)

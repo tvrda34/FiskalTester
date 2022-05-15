@@ -101,7 +101,7 @@ function CashRegisterTestsScreen() {
                   </td>
                   <td className="align-middle text-center">{test.created}</td>
                   {test.result === true && <td className="align-middle text-center"><i className="fas fa-check text-center" style = {{ color: 'green'}}></i> </td>}
-                  {test.result === false && <td className="align-middle text-center"><i className="fas fa-mark" style = {{ color: 'red'}}></i> </td>}
+                  {test.result === false && <td className="align-middle text-center"><i className="fa-solid fa-bug text-center" style = {{ color: 'red'}}></i> BUG</td>}
                   <td className="align-middle text-center">{test.result_description}</td>
 
                   <td>
