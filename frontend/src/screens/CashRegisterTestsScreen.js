@@ -38,7 +38,7 @@ function CashRegisterTestsScreen() {
     if (!userInfo) {
       navigate("/login");
     }
-    console.log(successCreate)
+    
     if (successCreate) {
       navigate("/tests/started")
     } else {
