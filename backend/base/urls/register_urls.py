@@ -10,4 +10,7 @@ urlpatterns = [
 
     path('delete/<str:pk>/', views.deleteCashRegister, name="delete-cash-register"),
     path('update/<str:pk>/', views.updateCashRegister, name="update-cash-register"),
+
+    path('startTest/<str:pk>/', views.addRegisterToTest, name="start-test"),
+    path('removeFromTest/<str:pk>/', views.removeTestStarted, name="remove-register-test"),
 ]

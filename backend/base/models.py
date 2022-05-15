@@ -52,4 +52,5 @@ class TestStarted(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
     register = models.ForeignKey(Register, on_delete=models.CASCADE, null=False)
     uuid = models.CharField(primary_key=True, editable=False, max_length=64)
+    timestamp = models.DateTimeField(auto_now_add=True)
 

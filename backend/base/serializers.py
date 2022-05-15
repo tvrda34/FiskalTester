@@ -1,3 +1,4 @@
+from dataclasses import fields
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -56,4 +57,10 @@ class TestMethodSerializer(serializers.ModelSerializer):
     class Meta:
         model = TestMethod
         fields ='__all__'
+
+class TestStartedSerializer(serializers.ModelSerializer):
+    register = RegisterSerializer(many=False, read_only=True)
+    class Meta:
+        model = TestStarted
+        fields = '__all__'
 

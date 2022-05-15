@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 
-from base.models import TestResult, TestMethod, Register
-from base.serializers import TestMethodSerializer, TestResultSerializer
+from base.models import TestResult, TestMethod, Register, TestStarted
+from base.serializers import TestMethodSerializer, TestResultSerializer, TestStartedSerializer
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -72,4 +72,12 @@ def getTestResultsForUser(request):
     except:
         message = {'detail': 'Internal server error!'}
         return Response(message, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getStartedTests(request):
+    user = request.user
+    testsStarted = TestStarted.objects.filter(user=user)
+    serializer = TestStartedSerializer(testsStarted, many=True)
+    return Response(serializer.data)
 

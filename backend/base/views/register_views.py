@@ -4,8 +4,9 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 
-from base.models import Register
-from base.serializers import RegisterSerializer
+from base.models import Register, TestStarted
+from base.serializers import RegisterSerializer, TestStartedSerializer
+import uuid
 
 #Cash register views
 
@@ -77,4 +78,35 @@ def getCashRegister(request, pk):
         return Response(serializer.data)
     except Register.DoesNotExist:
         message = {'detail': 'Cash register with this id does not exsists!'}
+        return Response(message, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def addRegisterToTest(request, pk):
+    user = request.user
+    try:
+        register = Register.objects.get(user=user, id=pk)
+    except:
+        message = {'detail': 'Forbidden!'}
+        return Response(message, status=status.HTTP_403_FORBIDDEN)
+
+    testStarted = TestStarted.objects.create(
+        user=user,
+        register=register,
+        uuid=uuid.uuid4().hex
+    )
+
+    serializer = TestStartedSerializer(testStarted, many=False)
+    return Response(serializer.data)
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def removeTestStarted(request, pk):
+    try:
+        user = request.user
+        testStarted = TestStarted.objects.get(uuid=pk, user=user)
+        testStarted.delete()
+        return Response('Register uuid removed from test!')
+    except TestStarted.DoesNotExist:
+        message = {'detail': 'TestStarted with this uuid does not exsists!'}
         return Response(message, status=status.HTTP_404_NOT_FOUND)
