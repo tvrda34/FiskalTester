@@ -24,8 +24,7 @@ function TestInspectScreen() {
   const testInfo = useSelector((state) => state.testDetails);
   const { loading, error, tests } = testInfo;
 
-  const testsList = useSelector((state) => state.testsList);
-  const { loading: loadingRes, error: errorRes, tests: testsRes } = testsList;
+  const { loading: loadingRes, error: errorRes, tests: testsRes } = testInfo;
 
   const testDelete = useSelector((state) => state.testDelete);
   const {
@@ -58,18 +57,16 @@ function TestInspectScreen() {
     <div>
       {loadingRes ? (
         <Loader />
-      ) : errorRes ? (
-        <Message variant="danger">{errorRes}</Message>
       ) : (
         testsRes.map(
           (baset) =>
-            baset.id == testResultId && (
+            baset.id === tests[0].id && (
               <div>
                 <Row className="align-items-center">
                   <Col>
                     <h1>Test Details: </h1>
                     <h2>
-                      {baset.register.name} {baset.reciept}
+                      {baset.testResult.register.name} {baset.testResult.reciept}
                     </h2>
                   </Col>
 
@@ -84,16 +81,16 @@ function TestInspectScreen() {
                     <h6>Register info:</h6>
                     <hr></hr>
                     <p>
-                      name: {baset.register.name}
+                      name: {baset.testResult.register.name}
                       <br />
-                      version: {baset.register.version}
+                      version: {baset.testResult.register.version}
                       <br />
-                      location: {baset.register.location}
+                      location: {baset.testResult.register.location}
                     </p>
                   </Col>
                   <Col className="text-right">
                     <h6>Test status</h6>
-                    {baset.result === true && (
+                    {baset.testResult.result === true && (
                       <div
                         class="alert alert-success"
                         style={{ borderRadius: 10, overflow: "hidden" }}
@@ -106,7 +103,7 @@ function TestInspectScreen() {
                         </h5>
                       </div>
                     )}
-                    {baset.result === false && (
+                    {baset.testResult.result === false && (
                       <div
                         class="alert alert-danger"
                         style={{ borderRadius: 10, overflow: "hidden" }}
@@ -119,13 +116,13 @@ function TestInspectScreen() {
                         </h5>
                       </div>
                     )}
-                    <p>{baset.result_description}</p>
+                    <p>{baset.testResult.result_description}</p>
                   </Col>
                 </Row>
                 <Row>
                   <p>
                     <b>Test started: </b>
-                    {baset.created}
+                    {baset.testResult.created}
                   </p>
                 </Row>
               </div>
