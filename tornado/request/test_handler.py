@@ -5,13 +5,10 @@ from .TestCase import TestCase
 from response import sign_response
 from utils.test_helper import TestUtil
 
-# Imitating the project and testing the output for given xml files
-project = "fiscal"
-
 # xml - lxml.etree variable
 # JIR, IdPoruke -> string
 # toVerify toModify toSign -> boolean
-def runTestCase(xml, JIR, IdPoruke):
+def run_test_case(xml, JIR, IdPoruke):
 
     testCase = TestCase(xml)
     #testCase.listPlugins()
@@ -29,7 +26,7 @@ def runTestCase(xml, JIR, IdPoruke):
     testUtil.validation()
 
     if(len(errorSet) == 0):
-        if(random.randint(0,1) == 0):
+        if(random.randint(0,2) != 0):
             fillRandom = True
     else:
         if(random.randint(0,1) == 0):

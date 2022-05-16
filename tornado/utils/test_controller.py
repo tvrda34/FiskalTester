@@ -3,7 +3,7 @@ import psycopg2
 from configparser import ConfigParser
 import uuid
 from datetime import datetime
-from request import testHandler
+from request import test_handler
 
 # main part por plugins
 
@@ -26,7 +26,7 @@ def test_request(xml, register_id, user_id):
     # generate random jir for response
     jir = str(uuid.uuid4())
 
-    response, testUtil = testHandler.runTestCase(xml, jir, zki)
+    response, testUtil = test_handler.run_test_case(xml, jir, zki)
 
     response = etree.tostring(response, pretty_print="true").decode(encoding="utf-8")
     request = etree.tostring(xml, pretty_print="true").decode(encoding="utf-8")
@@ -97,21 +97,23 @@ def test_result_resolve(register_id, user_id, reciept):
         'SELECT id, result, done FROM public.base_testresult WHERE register_id = {} AND user_id = {} AND reciept = \'{}\' '
         .format(register_id, user_id, reciept))
     test_result = cur.fetchone()
-    (id, result, done) = test_result
-    if id == None:
+    
+    if test_result == None:
         now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        cur.execute('INSERT INTO public.base_testresult (reciept, created, "result", result_description, register_id, user_id) VALUES (%s, %s, %s, %s, %s, %s)'
-                , (reciept, now, 'False', 'Cash register failed on test', register_id, user_id));
+        cur.execute('INSERT INTO public.base_testresult (reciept, created, "result", result_description, register_id, user_id, done) VALUES (%s, %s, %s, %s, %s, %s, %s)'
+                , (reciept, now, 'False', 'Cash register failed on test', register_id, user_id, False));
         con.commit()
         cur.execute(
         'SELECT id FROM public.base_testresult WHERE register_id = {} AND user_id = {} AND reciept = \'{}\' '
         .format(register_id, user_id, reciept))
         id = cur.fetchone()[0]
-
-    if result == True:
-        cur.execute('UPDATE public.base_testresult SET "result"=%s, result_description=%s done=%s WHERE id=%s'
-                , (False, 'Failed. Fiscalization request for the already processed reciept', True, id))
-        con.commit()
+        done = False
+    else:
+        (id, result, done) = test_result
+        if result == True:
+            cur.execute('UPDATE public.base_testresult SET "result"=%s, result_description=%s, done=%s WHERE id=%s'
+                    , (False, 'Failed. Fiscalization request for the already processed reciept', True, id))
+            con.commit()
 
     cur.close()
     con.close()

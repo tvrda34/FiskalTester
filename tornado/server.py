@@ -5,6 +5,10 @@ from lxml import etree
 
 
 class MainHandler(tornado.web.RequestHandler):
+    
+    def check_origin(self, origin):
+        return True
+
     def post(self):
         body = eval(self.request.body)
         xml_str = body['xml'].encode()
