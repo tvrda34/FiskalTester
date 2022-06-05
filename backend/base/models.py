@@ -56,3 +56,7 @@ class TestStarted(models.Model):
     uuid = models.CharField(primary_key=True, editable=False, max_length=64)
     timestamp = models.DateTimeField(auto_now_add=True)
 
+class UserExtended(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    uuid = models.CharField(primary_key=True, max_length=64, editable=False)
+

@@ -1,9 +1,9 @@
-from operator import imod
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
 from django.contrib.auth.models import User
+from base.models import UserExtended
 from base.serializers import UserSerializer, UserSerializerWithToken
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
@@ -12,15 +12,11 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
 
-from django.utils.crypto import get_random_string
 from django.core.mail import send_mail
 from django.conf import settings
 
 from django.template.loader import render_to_string
-from django.contrib.auth.tokens import PasswordResetTokenGenerator
-from six import text_type
-from django.utils.encoding import force_str, force_bytes
-from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+import uuid
 
 #User views
 
@@ -51,10 +47,15 @@ def registerUser(request):
             password=make_password(data['password']),
             is_active=False
         )
+        register_uuid = uuid.uuid4().hex
+        UserExtended.objects.create(
+            user = user,
+            uuid = register_uuid
+        )
 
         subject = 'Account Verification'
         message = 'Welcome'
-        verify_link = 'http://localhost:3000/email-verify/' + urlsafe_base64_encode(force_bytes(user.pk))
+        verify_link = 'http://localhost:3000/email-verify/' + register_uuid
         html_content = render_to_string('verify_email.html', {'verify_link':verify_link, 'base_url': 'http://localhost:3000/email-verify/' }) 
 
         send_mail(
@@ -108,14 +109,16 @@ def validateEmailToken(request):
     tokenValue  = token.get('token')
 
     try:
-        uid = force_str(urlsafe_base64_decode(tokenValue))
-        user = User.objects.get(pk=uid)
+        uid = tokenValue
+        userExt = UserExtended.objects.get(pk=uid)
+        user = userExt.user
     except(TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
 
     if user is not None and not user.is_active:
         user.is_active = True
         user.save()
+        userExt.delete()
         res = {
             'status': 'success',
             'message': 'Valid',
